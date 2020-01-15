@@ -22,7 +22,7 @@ public:
 	State8080(std::vector<uint8_t>);
 	~State8080();
 
-	void emulate();
+	int emulate();
 	void dump(std::ostream &);
 	void dump_state(std::ostream &);
 	void dump_memory(std::ostream &);

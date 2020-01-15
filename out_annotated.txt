@@ -4217,7 +4217,7 @@
 18CD NOP
 18CE CALL adr,#$08ff
 18D1 JMP  adr,#$0ab6
-18D4 LXI  SP, #$2400		// SP = #2400 Establish Stack pointer for program
+18D4 LXI  SP, #$2400		// START OF PROGRAM: SP = #2400 Establish Stack pointer for program
 18D7 MVI  B,  #$00	     	// B = 0
 18D9 CALL adr,#$01e6		// Call function at #01e6
 18DC CALL adr,#$1956		// Call function at #1956
