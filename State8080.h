@@ -39,6 +39,8 @@ public:
 	uint8_t l;
 	uint16_t sp;
 	uint16_t pc;
+	// program instructions are from 0x0000 to 0x1FFF
+	// Graphics are drawn into memory starting from 0x2400
 	std::vector<uint8_t> memory;
 	ConditionCodes cc;
 	uint8_t interrupts_enable;

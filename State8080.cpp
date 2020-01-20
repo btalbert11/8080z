@@ -59,7 +59,7 @@ State8080::~State8080()
 */
 
 void State8080::UnimplementedInstruction(uint8_t opcode) {
-	std::cout << "\n\nError: UnimplementedInstruction\tOpcode: " << std::hex << (unsigned int) opcode << "\n";
+	std::cout << "\n\nError: UNIMPLEMENTEDINSTRUCTION\tOpcode: " << std::hex << (unsigned int) opcode << "\n";
 	dump_state(std::cout);
 	exit(1);
 }
@@ -490,7 +490,6 @@ int State8080::emulate() {
 		//memory[sp] is more sig byte, memory[sp+1] is least sig byte
 		pc = get_16_bit(memory[sp + 1], memory[sp]);
 		sp += 2;
-		//pc--;
 #ifdef JUMP
 		std::cout << "RETURNING TO:" << std::hex << pc + 1 << "\tRETURN NUMBER " << --CALL_RET_NUMBER << "\n";
 #endif
@@ -498,8 +497,8 @@ int State8080::emulate() {
 	case 0xca: UnimplementedInstruction(*opcode); break;
 	case 0xcb: UnimplementedInstruction(*opcode); break;
 	case 0xcc: UnimplementedInstruction(*opcode); break;
-	case 0xcd: // Call a function, place return address on stack
-		return_address = pc + 2; // TODO Could be wrong?? TODO
+	case 0xcd: // CALL adr, call a function, place return address on stack
+		return_address = pc + 2;
 
 		// memory[sp-1] is more sig byte, memory[sp-2] is the least sig byte
 		memory[sp - 1] = (return_address >> 8) & 0xff;
@@ -522,11 +521,11 @@ int State8080::emulate() {
 	case 0xd2: UnimplementedInstruction(*opcode); break;
 
 		// TODO REIMPLEMENT
-	case 0xd3:; // OUT D8, sends reg a to port # byte
+	case 0xd3:;  //OUT D8, sends reg a to port # byte
 		//port = (uint8_t)opcode[1];
 		//machine_out(machine, a, port);       // Device dependent code
-		//pc += 1;
-		//break;
+		pc += 1;
+		break;
 	case 0xd4: UnimplementedInstruction(*opcode); break;
 	case 0xd5: // PUSH D, push DE onto stack, D first then E
 		memory[sp - 1] = d;
@@ -543,8 +542,8 @@ int State8080::emulate() {
 	case 0xdb:; // IN D8, reads in port # byte and stores in reg a
 		//port = (uint8_t)opcode[1];
 		//a = machine_in(machine, port);   // Device dependent code
-		//pc += 1;
-		//break;
+		pc += 1;
+		break;
 	case 0xdc: UnimplementedInstruction(*opcode); break;
 	case 0xdd: UnimplementedInstruction(*opcode); break;
 	case 0xde: UnimplementedInstruction(*opcode); break;
@@ -556,7 +555,17 @@ int State8080::emulate() {
 		sp += 2;
 		break;
 	case 0xe2: UnimplementedInstruction(*opcode); break;
-	case 0xe3: UnimplementedInstruction(*opcode); break;
+	case 0xe3: { // XTHL, Swap the top of the stack with HL
+		// UNTESTED
+		uint8_t temp;
+		temp = l;
+		l = memory[sp];
+		memory[sp] = temp;
+		temp = h;
+		h = memory[sp + 1];
+		memory[sp + 1] = temp;
+		break;
+	}
 	case 0xe4: UnimplementedInstruction(*opcode); break;
 	case 0xe5: // PUSH H, PUSH HL onto stack, first H then L
 		memory[sp - 1] = h;
@@ -599,7 +608,9 @@ int State8080::emulate() {
 		pc += 2;
 		break;
 	case 0xf2: UnimplementedInstruction(*opcode); break;
-	case 0xf3: UnimplementedInstruction(*opcode); break;
+	case 0xf3: // DI, dissable interrupts
+		interrupts_enable = 0;
+		break;
 	case 0xf4: UnimplementedInstruction(*opcode); break;
 	case 0xf5:; // PUSH PSW, push accumulator (reg a) and flags (as a reg) onto the stack
 		psw_reg = (
