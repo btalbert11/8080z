@@ -6,8 +6,7 @@
 */
 
 // No memory initialized
-State8080::State8080()
-{
+State8080::State8080() {
 	a = 0;
 	b = 0;
 	c = 0;
@@ -27,8 +26,7 @@ State8080::State8080()
 }
 
 // Memory alreay initialized
-State8080::State8080(std::vector<uint8_t> m)
-{
+State8080::State8080(std::vector<uint8_t> m) {
 	a = 0;
 	b = 0;
 	c = 0;
@@ -113,13 +111,13 @@ void State8080::dump(std::ostream &file) {
 
 
 // majority of program emulation happens in this function
-int State8080::emulate() {
+int State8080::emulate(MachineSI &machine) {
 
 	uint8_t * opcode = memory.data() + pc;
 	uint16_t op_answer_16;
 	uint32_t op_answer_32;
 	uint16_t return_address;
-	//uint8_t port;
+	uint8_t port;
 	uint8_t psw;
 	uint8_t psw_reg;
 
@@ -522,8 +520,8 @@ int State8080::emulate() {
 
 		// TODO REIMPLEMENT
 	case 0xd3:;  //OUT D8, sends reg a to port # byte
-		//port = (uint8_t)opcode[1];
-		//machine_out(machine, a, port);       // Device dependent code
+		port = (uint8_t)opcode[1];
+		machine.out(a, port);       // Device dependent code
 		pc += 1;
 		break;
 	case 0xd4: UnimplementedInstruction(*opcode); break;
@@ -540,8 +538,8 @@ int State8080::emulate() {
 
 		//TODO REIMPLEMENT
 	case 0xdb:; // IN D8, reads in port # byte and stores in reg a
-		//port = (uint8_t)opcode[1];
-		//a = machine_in(machine, port);   // Device dependent code
+		port = (uint8_t)opcode[1];
+		a = machine.in(port);   // Device dependent code
 		pc += 1;
 		break;
 	case 0xdc: UnimplementedInstruction(*opcode); break;

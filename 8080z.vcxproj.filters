@@ -21,6 +21,12 @@
     <ClInclude Include="State8080.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MachineSI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformWindows.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -30,6 +36,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="State8080.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MachineSI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformWindows.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
