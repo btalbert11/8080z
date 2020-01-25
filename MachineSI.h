@@ -17,6 +17,8 @@ public:
 	~MachineSI();
 
 	void dump_info(std::ostream &);
+	void key_down(char);
+	void key_up(char);
 	void out(uint8_t, uint8_t);
 	uint8_t in(uint8_t);
 };

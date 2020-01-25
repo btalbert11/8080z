@@ -16,22 +16,59 @@ MachineSI::~MachineSI()
 {
 }
 
+void MachineSI::key_down(char key) {
+	switch (key) {
+		case ' '://FIRE:
+			// set bit 4
+			ports[1] = ports[1] | 0x10;
+			break;
+		case 'L'://LEFT:
+			// set bit 5
+			ports[1] = ports[1] | 0x20;
+			break;
+		case 'R'://RIGHT:
+			// set bit 6
+			ports[1] = ports[1] | 0x40;
+			break;
+		case '\r'://P1_START:
+			// set bit 2
+			ports[1] = ports[1] | 0x04;
+			break;
+	}
+}	
+	
+void MachineSI::key_up(char key) {
+	switch (key) {
+	case 'L'://LEFT:
+		// clear bit 5
+		ports[1] = ports[1] & 0xdf;
+		break;
+	case 'R'://RIGHT:
+		// clear bit 6
+		ports[1] = ports[1] & 0xbf;
+		break;
+	case ' '://FIRE:
+		// clear bit 4
+		ports[1] = ports[1] & 0xef;
+		break;
+	case '\r'://P1_START:
+		// clear bit 2
+		ports[1] = ports[1] & 0xfb;
+		break;
+	}
+}	
+	
 
 void MachineSI::dump_info(std::ostream &file) {
 
 	// ports as bits
-	std::bitset<8> zero(ports[0]);
-	std::bitset<8> one(ports[1]);
-	std::bitset<8> two(ports[2]);
-	std::bitset<8> three(ports[3]);
-	std::bitset<8> four(ports[4]);
-	std::bitset<8> five(ports[5]);
-	std::bitset<8> six(ports[6]);
-	std::bitset<8> seven(ports[7]);
+
+
 
 	file << "\n---------- MACHINE DUMP ----------\n";
 	file << "State: shift_x=" << std::hex << (unsigned int)shift_offset << ", shift_y=" << (unsigned int)shift_y << ", shift_offset=" << (unsigned int)shift_offset << "\n";
-	file << "ports: [0]=" << zero << ", [1]=" << one << ", [2]=" << two << ", [3]=" << three << ", [4]=" << four << ", [5]=" << five << ", [6]=" << six << ", [7]=" << seven << "\n";
+	file << "ports: [0]=" << std::bitset<8>(ports[0]) << ", [1]=" << std::bitset<8>(ports[1]) << ", [2]=" << std::bitset<8>(ports[2]) << ", [3]=" << std::bitset<8>(ports[3]);
+	file << ", [4]=" << std::bitset<8> (ports[4]) << ", [5]=" << std::bitset<8> (ports[5]) << ", [6]=" << std::bitset<8> (ports[6]) << ", [7]=" << std::bitset<8> (ports[7]) << "\n";
 	file << "\n---------- END OF MACHINE DUMP ----------\n";
 }
 

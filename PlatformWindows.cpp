@@ -12,38 +12,38 @@ PlatformWindows::~PlatformWindows()
 }
 
 
-void PlatformWindows::pollKeyboard(MachineSI & machine) {
-	/*// Enter key is pressed
+void PlatformWindows::poll_keyboard(MachineSI & machine) {
+	// Enter key is pressed
 	if (GetKeyState(VK_RETURN) & 0x8000) {
-		machine_key_down(machine, '\r');
+		machine.key_down('\r');
 		printf("ENTER KEY\n");
 	}
 	else {
-		machine_key_up(machine, '\r');
+		machine.key_up('\r');
 	}
 
 	// Left arrow key pressed
 	if (GetKeyState(VK_LEFT) & 0x8000) {
-		machine_key_down(machine, 'L');
+		machine.key_down('L');
 	}
 	else {
-		machine_key_up(machine, 'L');
+		machine.key_up('L');
 	}
 
 	// Right arrow key pressed
 	if (GetKeyState(VK_RIGHT) & 0x8000) {
-		machine_key_down(machine, 'R');
+		machine.key_down('R');
 	}
 	else {
-		machine_key_up(machine, 'R');
+		machine.key_up('R');
 	}
 
 	// space bar pressed
 	if (GetKeyState(VK_SPACE) & 0x8000) {
-		machine_key_down(machine, ' ');
+		machine.key_down(' ');
 	}
 	else {
-		machine_key_up(machine, ' ');
+		machine.key_up(' ');
 	}
-	*/
+	
 }

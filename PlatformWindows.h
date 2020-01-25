@@ -12,7 +12,7 @@ public:
 	~PlatformWindows();
 
 	// polls keyboard and updates machine ports
-	void pollKeyboard(MachineSI &);
+	void static poll_keyboard(MachineSI &);
 };
 
 #endif // !PLATFORMWINDOWS_H
