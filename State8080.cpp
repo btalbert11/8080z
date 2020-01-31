@@ -23,6 +23,7 @@ State8080::State8080() {
 	cc.ac = 0;
 	cc.pad = 0;
 	interrupts_enable = 0;
+	this->memory;
 }
 
 // Memory alreay initialized
@@ -107,6 +108,29 @@ void State8080::dump_memory(std::ostream &file) {
 void State8080::dump(std::ostream &file) {
 	dump_state(file);
 	dump_memory(file);
+}
+
+// Get the processor ready for an interrupt
+void State8080::generate_interrupt(int interrupt_number) {
+	//TODO TEST
+	if (!interrupts_enable) {
+		return;
+	}
+
+	// Dissable interrupts. Space invaders code will re-enable them
+	// after its interrupt handler returns.
+	interrupts_enable = 0;
+
+	// push the pc onto the stack
+	// memory[sp-1] is more sig byte, memory[sp-2] is the least sig byte
+	memory[sp - 1] = (pc >> 8) & 0xff;
+	memory[sp - 2] = (pc & 0xff);
+	sp -= 2;
+
+	// equivelent to an RST instruction. They are mostly given to the processor
+	// by whatever hardware is calling the interrupt, and not used in the Space Invaders
+	// code
+	pc = 8 * interrupt_number;
 }
 
 
@@ -260,7 +284,19 @@ int State8080::emulate(MachineSI &machine) {
 		break;
 	case 0x33: UnimplementedInstruction(*opcode); break;
 	case 0x34: UnimplementedInstruction(*opcode); break;
-	case 0x35: UnimplementedInstruction(*opcode); break;
+	case 0x35: // DCR M, (HL) = (HL)--
+		op_answer_16 = get_16_bit(h, l);
+		op_answer_16--;
+		//flags
+		if (op_answer_16 == 0) { cc.z = 1; }
+		else { cc.z = 0; }
+		if ((op_answer_16 & 0x8000) == 0x8000) { cc.s = 1; }
+		else { cc.s = 0; }
+		cc.p = parity(op_answer_16);
+
+		h = (uint8_t)(op_answer_16 >> 8);
+		l = (uint8_t)(op_answer_16 & 0xff);
+		break;
 	case 0x36: // MVI M, D8 (HL) = byte
 		memory[get_16_bit(h, l)] = (uint8_t)opcode[1];
 		pc += 1;
@@ -483,7 +519,12 @@ int State8080::emulate(MachineSI &machine) {
 		a = op_answer_16 & 0xff;
 		break;
 	case 0xc7: UnimplementedInstruction(*opcode); break;
-	case 0xc8: UnimplementedInstruction(*opcode); break;
+	case 0xc8: // RZ, return if flag Z is 1
+		if (cc.z == 0) {
+			break;
+		}
+		// Else, return
+
 	case 0xc9: // RET, return to address on the stack
 		//memory[sp] is more sig byte, memory[sp+1] is least sig byte
 		pc = get_16_bit(memory[sp + 1], memory[sp]);
@@ -534,9 +575,12 @@ int State8080::emulate(MachineSI &machine) {
 	case 0xd7: UnimplementedInstruction(*opcode); break;
 	case 0xd8: UnimplementedInstruction(*opcode); break;
 	case 0xd9: UnimplementedInstruction(*opcode); break;
-	case 0xda: UnimplementedInstruction(*opcode); break;
-
-		//TODO REIMPLEMENT
+	case 0xda: // JC adr
+		//TODO START HERE
+		// V sick right now
+		
+		UnimplementedInstruction(*opcode); 
+		break;
 	case 0xdb:; // IN D8, reads in port # byte and stores in reg a
 		port = (uint8_t)opcode[1];
 		a = machine.in(port);   // Device dependent code

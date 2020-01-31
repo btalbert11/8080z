@@ -1,7 +1,7 @@
 #ifndef MACHINESI_H
 #define MACHINESI_H
 
-#include "pch.h"
+//#include "pch.h"
 #include <bitset>
 
 class MachineSI

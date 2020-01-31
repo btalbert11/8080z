@@ -1,7 +1,8 @@
 #ifndef _State8080_H
 #define _State8080_H
 
-#include "pch.h"
+//#include "pch.h"
+#include "MachineSI.h"
 
 struct ConditionCodes
 {
@@ -22,13 +23,20 @@ public:
 	State8080(std::vector<uint8_t>);
 	~State8080();
 
+	// Main Processor emulation functions
 	int emulate(MachineSI &);
+	void generate_interrupt(int);
+	
+	// Debug functions
 	void dump(std::ostream &);
 	void dump_state(std::ostream &);
 	void dump_memory(std::ostream &);
+	void UnimplementedInstruction(uint8_t opcode);
+
+	// Helper functions
 	uint8_t parity(uint16_t);
 	uint16_t get_16_bit(uint8_t, uint8_t);
-	void UnimplementedInstruction(uint8_t opcode);
+
 
 	uint8_t a;
 	uint8_t b;

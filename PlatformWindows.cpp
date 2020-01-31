@@ -1,5 +1,4 @@
 #include "pch.h"
-#include "PlatformWindows.h"
 
 
 PlatformWindows::PlatformWindows()
@@ -11,6 +10,11 @@ PlatformWindows::~PlatformWindows()
 {
 }
 
+
+double PlatformWindows::time() {
+	//TODO
+	return 1;
+}
 
 void PlatformWindows::poll_keyboard(MachineSI & machine) {
 	// Enter key is pressed
