@@ -4091,9 +4091,9 @@
 17C9 RET
 17CA IN   adr,#$02
 17CC RET
-17CD IN   adr,#$02
+17CD IN   adr,#$02		# interrup 2 goes here
 17CF ANI  adr,#$04
-17D1 RZ
+17D1 RZ					# will return here
 17D2 LDA  adr,#$209a
 17D5 ANA  A
 17D6 RNZ

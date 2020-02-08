@@ -14,7 +14,7 @@ State8080::State8080() {
 	e = 0;
 	h = 0;
 	l = 0;
-	sp = 0;
+	sp = 65534; // End of memory, stack grows down
 	pc = 0;
 	cc.z = 0;
 	cc.s = 0;
@@ -35,7 +35,7 @@ State8080::State8080(std::vector<uint8_t> m) {
 	e = 0;
 	h = 0;
 	l = 0;
-	sp = 0;
+	sp = 65534; // End of memory, stack grows down
 	pc = 0;
 	cc.z = 0;
 	cc.s = 0;
@@ -123,8 +123,9 @@ void State8080::generate_interrupt(int interrupt_number) {
 
 	// push the pc onto the stack
 	// memory[sp-1] is more sig byte, memory[sp-2] is the least sig byte
-	memory[sp - 1] = (pc >> 8) & 0xff;
-	memory[sp - 2] = (pc & 0xff);
+	uint16_t return_address = pc - 1;
+	memory[sp - 1] = (return_address >> 8) & 0xff;
+	memory[sp - 2] = (return_address & 0xff);
 	sp -= 2;
 
 	// equivelent to an RST instruction. They are mostly given to the processor
@@ -135,7 +136,7 @@ void State8080::generate_interrupt(int interrupt_number) {
 
 
 // majority of program emulation happens in this function
-int State8080::emulate(MachineSI &machine) {
+int State8080::emulate(MachineSI &machine) throw (std::out_of_range) {
 
 	uint8_t * opcode = memory.data() + pc;
 	uint16_t op_answer_16;
@@ -487,7 +488,8 @@ int State8080::emulate(MachineSI &machine) {
 		b = memory[sp + 1];
 		sp += 2;
 		break;
-	case 0xc2: // JNZ if (not z) PC <- addr
+	case 0xc2: // JNZ addr
+		// If not Z, jump
 		if (!cc.z) {
 			pc = get_16_bit(opcode[2], opcode[1]);
 			pc--;
@@ -533,7 +535,16 @@ int State8080::emulate(MachineSI &machine) {
 		std::cout << "RETURNING TO:" << std::hex << pc + 1 << "\tRETURN NUMBER " << --CALL_RET_NUMBER << "\n";
 #endif
 		break;
-	case 0xca: UnimplementedInstruction(*opcode); break;
+	case 0xca: // JZ adr
+		// If Z, jump
+		if (cc.z) {
+			pc = get_16_bit(opcode[2], opcode[1]);
+			pc--;
+		}
+		else {
+			pc += 2;
+		}
+		break;
 	case 0xcb: UnimplementedInstruction(*opcode); break;
 	case 0xcc: UnimplementedInstruction(*opcode); break;
 	case 0xcd: // CALL adr, call a function, place return address on stack
@@ -557,9 +568,16 @@ int State8080::emulate(MachineSI &machine) {
 		d = memory[sp + 1];
 		sp += 2;
 		break;
-	case 0xd2: UnimplementedInstruction(*opcode); break;
-
-		// TODO REIMPLEMENT
+	case 0xd2: // JNC adr
+		// If not CY, jump 
+		if (!cc.cy) {
+			pc = get_16_bit(opcode[2], opcode[1]);
+			pc--;
+		}
+		else {
+			pc += 2;
+		}
+		break;
 	case 0xd3:;  //OUT D8, sends reg a to port # byte
 		port = (uint8_t)opcode[1];
 		machine.out(a, port);       // Device dependent code
@@ -576,10 +594,14 @@ int State8080::emulate(MachineSI &machine) {
 	case 0xd8: UnimplementedInstruction(*opcode); break;
 	case 0xd9: UnimplementedInstruction(*opcode); break;
 	case 0xda: // JC adr
-		//TODO START HERE
-		// V sick right now
-		
-		UnimplementedInstruction(*opcode); 
+		// If CY, jump
+		if (cc.cy) {
+			pc = get_16_bit(opcode[2], opcode[1]);
+			pc--;
+		}
+		else {
+			pc += 2;
+		}
 		break;
 	case 0xdb:; // IN D8, reads in port # byte and stores in reg a
 		port = (uint8_t)opcode[1];
@@ -647,7 +669,6 @@ int State8080::emulate(MachineSI &machine) {
 		cc.ac = (0x10 == (psw & 0x10));
 		cc.z = (64 == (psw & 64));
 		cc.s = (128 == (psw & 128));
-		pc += 2;
 		break;
 	case 0xf2: UnimplementedInstruction(*opcode); break;
 	case 0xf3: // DI, dissable interrupts
@@ -694,6 +715,8 @@ int State8080::emulate(MachineSI &machine) {
 
 
 	default:
+		std::cout << "BAD INSTRUCTION\n";
+		exit(-1);
 		break;
 	}
 

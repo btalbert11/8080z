@@ -1,0 +1,301 @@
+
+Interrupts enabled here
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=3e, l=1
+pc=af2, sp=2400
+
+---------- END OF STATE DUMP ----------
+
+
+interrupt generated, should return to AF3
+
+
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=3e, l=1
+pc=10, sp=23fe
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=3e, l=1
+pc=11, sp=23fc
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=3e, l=1
+pc=12, sp=23fa
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=3e, l=1
+pc=13, sp=23f8
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=3e, l=1
+pc=14, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=80, b=0, c=0, d=1f, e=b0, h=3e, l=1
+pc=16, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=80, b=0, c=0, d=1f, e=b0, h=3e, l=1
+pc=19, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=80, b=0, c=0, d=1f, e=b0, h=20, l=c0
+pc=1c, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+
+
+
+call is made here
+
+
+---------- STATE DUMP ----------
+State: a=80, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=1d, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+
+
+---------- STATE DUMP ----------
+State: a=80, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=17cd, sp=23f4
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=17cf, sp=23f4
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=17d1, sp=23f4
+
+---------- END OF STATE DUMP ----------
+
+
+returns to correct place
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=20, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=8, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=22, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=4, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=23, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=4, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=26, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=29, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=2a, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=42, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=1, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=45, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=1, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=46, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=1, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=49, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=4c, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=4d, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=50, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=53, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=54, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+
+Call is made here
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=57, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+
+
+
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=abf, sp=23f4
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=ac2, sp=23f4
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=ac3, sp=23f4
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=ac6, sp=23f4
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=ac7, sp=23f4
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=aca, sp=23f4
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=acb, sp=23f4
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=ace, sp=23f4
+
+---------- END OF STATE DUMP ----------
+
+returns here
+
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=5a, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=20, l=bf
+pc=82, sp=23f6
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=3e, l=1
+pc=83, sp=23f8
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=3e, l=1
+pc=84, sp=23fa
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=3e, l=1
+pc=85, sp=23fc
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=3e, l=1
+pc=86, sp=23fe
+
+---------- END OF STATE DUMP ----------
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=3e, l=1
+pc=87, sp=23fe
+
+---------- END OF STATE DUMP ----------
+
+
+Should return to af3
+
+---------- STATE DUMP ----------
+State: a=0, b=0, c=0, d=1f, e=b0, h=3e, l=1
+pc=af4, sp=2400
+
+---------- END OF STATE DUMP ----------
