@@ -136,7 +136,7 @@ void State8080::generate_interrupt(int interrupt_number) {
 
 
 // majority of program emulation happens in this function
-int State8080::emulate(MachineSI &machine) throw (std::out_of_range) {
+int State8080::emulate(MachineSI &machine) {
 
 	uint8_t * opcode = memory.data() + pc;
 	uint16_t op_answer_16;
